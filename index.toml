@@ -1,0 +1,10 @@
+hash-format = "sha256"
+
+[[files]]
+file = "mods/mouse-tweaks.pw.toml"
+hash = "93091b397f6ac25759b98be7034767689407bb344c464a9359642122a8b683db"
+metafile = true
+
+[[files]]
+file = "test/test.txt"
+hash = "c2a4f4903509957d138e216a6d2c0d7867235c61088c02ca5cf38f2332407b00"
