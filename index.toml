@@ -1,10 +1,19 @@
 hash-format = "sha256"
 
 [[files]]
+file = "mods/forgeessentials-1.12.2-12.3.124-server.jar"
+hash = "70f03270b8e78fc3b89a898b34fb04ee24b0037783f3379cc5e7f55a14324418"
+
+[[files]]
 file = "mods/mouse-tweaks.pw.toml"
-hash = "93091b397f6ac25759b98be7034767689407bb344c464a9359642122a8b683db"
+hash = "30746e92b44351d3365fa5aa6e43b623476c91116fb8b9f88b7233339d3c9f43"
+metafile = true
+
+[[files]]
+file = "mods/randompatches-forge.pw.toml"
+hash = "7dea0074b96157c963f0a30fecc68bb199767743d304ced4d599712828d90a7d"
 metafile = true
 
 [[files]]
 file = "test/test.txt"
-hash = "c2a4f4903509957d138e216a6d2c0d7867235c61088c02ca5cf38f2332407b00"
+hash = "a036b85da9c603a74ba495cc5e65e351c06af78c3892e810fd2805c9e3473b25"
