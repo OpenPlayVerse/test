@@ -1,0 +1,16 @@
+{
+  "isRealTime": false,
+  "isDelay": false,
+  "zoneId": 1,
+  "group": "_ALL_",
+  "times": [
+    6000,
+    18000
+  ],
+  "permissions": {
+    "some.test.permission": {
+      "on": "true",
+      "off": "false"
+    }
+  }
+}
