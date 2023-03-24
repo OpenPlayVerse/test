@@ -1,8 +1,46 @@
 hash-format = "sha256"
 
 [[files]]
-file = "mods/forgeessentials-1.12.2-12.3.124-server.jar"
+file = "conf-client/.gitkeep"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "conf-client/client.conf"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "conf-server/.gitkeep"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "conf-server/server.conf"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "config/.gitkeep"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "mods-client/.gitkeep"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "mods-client/sound-filters.pw.toml"
+hash = "0cf8f002a5c13f8e06aaec8fe631e9469c6d32e701d3dfa3aceb7fd1ce27fe2f"
+metafile = true
+
+[[files]]
+file = "mods-server/.gitkeep"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "mods-server/forgeessentials-1.12.2-12.3.124-server.jar"
 hash = "70f03270b8e78fc3b89a898b34fb04ee24b0037783f3379cc5e7f55a14324418"
+
+[[files]]
+file = "mods-server/worldedit.pw.toml"
+hash = "d10c418f02190951aa9909a46005af48ab9aa214ed356337c432fd6f3cd3b1ab"
+metafile = true
 
 [[files]]
 file = "mods/mouse-tweaks.pw.toml"
@@ -13,6 +51,10 @@ metafile = true
 file = "mods/randompatches-forge.pw.toml"
 hash = "7dea0074b96157c963f0a30fecc68bb199767743d304ced4d599712828d90a7d"
 metafile = true
+
+[[files]]
+file = "push.sh"
+hash = "4a7511e6eeaabd7e77999f04864e5da5d725dd084ba1ef8ff94594406cff3e36"
 
 [[files]]
 file = "test/test.txt"
