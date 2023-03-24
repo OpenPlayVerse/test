@@ -59,3 +59,7 @@ hash = "4a7511e6eeaabd7e77999f04864e5da5d725dd084ba1ef8ff94594406cff3e36"
 [[files]]
 file = "test/test.txt"
 hash = "a036b85da9c603a74ba495cc5e65e351c06af78c3892e810fd2805c9e3473b25"
+
+[[files]]
+file = "test/test2.txt"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
