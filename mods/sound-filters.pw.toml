@@ -1,6 +1,6 @@
 name = "Sound Filters"
 filename = "SoundFilters-0.12.1_for_1.12.jar"
-side = "both"
+side = "client"
 
 [download]
 hash-format = "sha1"

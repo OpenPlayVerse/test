@@ -1,6 +1,6 @@
 name = "WorldEdit"
 filename = "worldedit-forge-mc1.12.2-6.1.10-dist.jar"
-side = "both"
+side = "server"
 
 [download]
 hash-format = "sha1"

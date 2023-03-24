@@ -25,11 +25,6 @@ file = "mods-client/.gitkeep"
 hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 [[files]]
-file = "mods-client/sound-filters.pw.toml"
-hash = "0cf8f002a5c13f8e06aaec8fe631e9469c6d32e701d3dfa3aceb7fd1ce27fe2f"
-metafile = true
-
-[[files]]
 file = "mods-server/.gitkeep"
 hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
@@ -38,8 +33,8 @@ file = "mods-server/forgeessentials-1.12.2-12.3.124-server.jar"
 hash = "70f03270b8e78fc3b89a898b34fb04ee24b0037783f3379cc5e7f55a14324418"
 
 [[files]]
-file = "mods-server/worldedit.pw.toml"
-hash = "d10c418f02190951aa9909a46005af48ab9aa214ed356337c432fd6f3cd3b1ab"
+file = "mods/forgeessentials-jar.pw.toml"
+hash = "172240a8cb98de58f70781bf5a6bf7e274f0b7102c88f53c4e69402f0fb81601"
 metafile = true
 
 [[files]]
@@ -49,12 +44,22 @@ metafile = true
 
 [[files]]
 file = "mods/randompatches-forge.pw.toml"
-hash = "7dea0074b96157c963f0a30fecc68bb199767743d304ced4d599712828d90a7d"
+hash = "93d16979ce8714c02e8e13cfb36d7f604e75ca334ec3349bf6d4e8e42f1c5563"
+metafile = true
+
+[[files]]
+file = "mods/sound-filters.pw.toml"
+hash = "f111153fa99abf794602fb50a853d1f8f05c1acbbca099d813389564cd4ead3d"
+metafile = true
+
+[[files]]
+file = "mods/worldedit.pw.toml"
+hash = "e03d80460b43f8508648f0cc4ca20e1583066c183cc9674fc021c721db2678ef"
 metafile = true
 
 [[files]]
 file = "push.sh"
-hash = "4a7511e6eeaabd7e77999f04864e5da5d725dd084ba1ef8ff94594406cff3e36"
+hash = "b2767d1b777551a08004c955e12a836460bb97ff072c87c9fc3ef2557445631b"
 
 [[files]]
 file = "test/test.txt"

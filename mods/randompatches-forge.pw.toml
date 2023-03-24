@@ -1,6 +1,6 @@
 name = "RandomPatches (Forge)"
 filename = "randompatches-1.12.2-1.22.1.10.jar"
-side = "server"
+side = "both"
 
 [download]
 hash-format = "sha1"
