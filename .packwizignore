@@ -1,0 +1,6 @@
+*.token
+secret/
+
+client/
+server/
+tools/

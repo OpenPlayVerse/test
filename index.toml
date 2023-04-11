@@ -1,36 +1,8 @@
 hash-format = "sha256"
 
 [[files]]
-file = "conf-client/.gitkeep"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "conf-client/client.conf"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "conf-server/.gitkeep"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "conf-server/server.conf"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
 file = "config/.gitkeep"
 hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "mods-client/.gitkeep"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "mods-server/.gitkeep"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "mods-server/forgeessentials-1.12.2-12.3.124-server.jar"
-hash = "70f03270b8e78fc3b89a898b34fb04ee24b0037783f3379cc5e7f55a14324418"
 
 [[files]]
 file = "mods/forgeessentials-jar.pw.toml"
@@ -56,10 +28,6 @@ metafile = true
 file = "mods/worldedit.pw.toml"
 hash = "e03d80460b43f8508648f0cc4ca20e1583066c183cc9674fc021c721db2678ef"
 metafile = true
-
-[[files]]
-file = "push.sh"
-hash = "b2767d1b777551a08004c955e12a836460bb97ff072c87c9fc3ef2557445631b"
 
 [[files]]
 file = "test/test.txt"
