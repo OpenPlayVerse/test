@@ -1,5 +1,5 @@
 #!/usr/bin/pleal
-local version = "1.1"
+local version = "1.1.1"
 
 --===== conf =====--
 local baseDownloadURI = "https://github.com/OpenPlayVerse/test/raw/master/"
@@ -159,6 +159,8 @@ do --arg parsing
 	args = parser:parse()
 end
 
+--===== prog start =====--
+--clear files
 if args.remove or args.clear then
 	print("Remove previously added files")
 	listFileHandler = io.open(listFile, "r")
@@ -181,10 +183,7 @@ else
 	listFileHandler = io.open(listFile, "a")
 end
 
---===== prog start =====--
---clear files
-
-
+--add files
 collectFiles("server", "server")
 collectFiles("client", "client")
 
