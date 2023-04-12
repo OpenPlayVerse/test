@@ -2,30 +2,11 @@ hash-format = "sha256"
 
 [[files]]
 file = ".collectedFiles"
-hash = "62f33df0ccd0ae8b99755e98faa32835ed1c0508b2c3411f0a436a11fe05bb81"
-
-[[files]]
-file = ".filelist"
 hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 [[files]]
 file = "config/.gitkeep"
 hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "config/client.conf.pw.toml"
-hash = "f5904fb928b447409a61f8b0ff748dc05c5fa6c745dea79e60a20e8865b1ec02"
-metafile = true
-
-[[files]]
-file = "config/server.conf.pw.toml"
-hash = "9be079e7b257bb896a700d0105fd2e1e123a9fc86533e87002b8da118e699800"
-metafile = true
-
-[[files]]
-file = "mods/forgeessentials.jar.pw.toml"
-hash = "f6fc1c86887f7b631484f8001fcde36633c95a877b78169a1c5bf4165e77c4dd"
-metafile = true
 
 [[files]]
 file = "mods/mouse-tweaks.pw.toml"
@@ -46,18 +27,6 @@ metafile = true
 file = "mods/worldedit.pw.toml"
 hash = "e03d80460b43f8508648f0cc4ca20e1583066c183cc9674fc021c721db2678ef"
 metafile = true
-
-[[files]]
-file = "test/test.sh"
-hash = "63a6cbbdd9e2b4b3a3bdd9c6947278f762a7dbc86d3587e2d15e3fe1b12fc431"
-
-[[files]]
-file = "test/test.txt"
-hash = "a036b85da9c603a74ba495cc5e65e351c06af78c3892e810fd2805c9e3473b25"
-
-[[files]]
-file = "test/test2.txt"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 [[files]]
 file = "testfile"
