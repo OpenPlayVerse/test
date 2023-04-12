@@ -42,3 +42,7 @@ metafile = true
 file = "mods/worldedit.pw.toml"
 hash = "e03d80460b43f8508648f0cc4ca20e1583066c183cc9674fc021c721db2678ef"
 metafile = true
+
+[[files]]
+file = "test.tar.gz"
+hash = "aa73975b6f50547bece7c1dd66d878cb93c5fd5c50a922ae12e770a9c0d189e7"
