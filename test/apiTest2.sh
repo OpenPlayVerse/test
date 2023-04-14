@@ -1,7 +1,7 @@
 #!/bin/pleal
 local timeout = 3
 --local uri = "https://damsdev.namelessserver.net/"
-local uri = "https://api.github.com/repos/OpenPlayVerse/test/releases"
+local uri = "https://uploads.github.com/repos/OpenPlayVerse/test/releases/99181474/assets?name=test.tar.gz"
 --local uri = "http://127.0.0.1:8023/dumpRequest"
 
 local http = require("http.request")
@@ -22,7 +22,8 @@ request.headers:upsert(":method", "POST")
 request.headers:upsert("Accept", "json")
 request.headers:upsert("Authorization", "Bearer $token")
 request.headers:upsert("X-GitHub-Api-Version", "2022-11-28")
-request:set_body([[{"tag_name":"v0.0.7","target_commitish":"master","name":"pleal test","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}]])
+request.headers:upsert("content-type", "application/gzip")
+request:set_body(io.open("test.tar.gz"):read("*a"))
 
 resHeaders, stream = request:go()
 if resHeaders == nil then
