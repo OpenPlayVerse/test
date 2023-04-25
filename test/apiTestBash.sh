@@ -6,4 +6,4 @@ curl -L \
   -H "Authorization: Bearer $(cat ghAPI.token)"\
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/OpenPlayVerse/test/releases \
-  -d '{"tag_name":"v0.0.2","target_commitish":"master","name":"bash test","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
+  -d '{"tag_name":"v0.0.8","target_commitish":"master","name":"bash test","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'

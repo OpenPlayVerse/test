@@ -22,7 +22,7 @@ request.headers:upsert(":method", "POST")
 request.headers:upsert("Accept", "json")
 request.headers:upsert("Authorization", "Bearer $token")
 request.headers:upsert("X-GitHub-Api-Version", "2022-11-28")
-request:set_body([[{"tag_name":"v0.0.7","target_commitish":"master","name":"pleal test","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}]])
+request:set_body([[{"tag_name":"v0.0.9","target_commitish":"master","name":"pleal test","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}]])
 
 resHeaders, stream = request:go()
 if resHeaders == nil then
