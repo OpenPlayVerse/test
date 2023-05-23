@@ -5,6 +5,10 @@ file = ".collectedFiles"
 hash = "62f33df0ccd0ae8b99755e98faa32835ed1c0508b2c3411f0a436a11fe05bb81"
 
 [[files]]
+file = ".currentReleaseTag"
+hash = "69dbe1a1f4ad44b334d56ee3f64e1185b831d3d6445b7b980c6fe8cfa39a62e0"
+
+[[files]]
 file = "config/.gitkeep"
 hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
