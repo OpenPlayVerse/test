@@ -34,12 +34,7 @@ luarocks packages:
 git  
 java  
 mcrcon  
-[packwiz](https://github.com/packwiz/packwiz)  
 tar  
-
-
-
-### Server
 
 # Third party
 ### GPLv3
@@ -51,7 +46,7 @@ MMMTK includes some third party libraries distributed under the GPLv3 license. F
 MMMTK includes some third party libraries and programs distributed under the MIT license.
 
 [json.lua](https://github.com/rxi/json.lua) Copyright (c) 2020 rxi  
-[packwiz](https://github.com/packwiz/packwiz)  Copyright (c) 2019
+[packwiz-installer-bootstrap](https://github.com/packwiz/packwiz-installer-bootstrap)  Copyright (c) 2019  
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

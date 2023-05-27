@@ -10,7 +10,7 @@ hash = "4a03dc6eb67c255f17154376ec3b99af63c21820d3ad36703db4eb76acf9d3ce"
 
 [[files]]
 file = "README.md"
-hash = "2a60d148e00b0ee05143b20304f3ab7b5110b8e9145187bc839a27a973d8e131"
+hash = "ab4e1f70d2d27f125aa9ccf9703ed7de3e4e5a15cf5bf3c430ec32ebf6c25077"
 
 [[files]]
 file = "config/.gitkeep"
