@@ -6,11 +6,11 @@ hash = "62f33df0ccd0ae8b99755e98faa32835ed1c0508b2c3411f0a436a11fe05bb81"
 
 [[files]]
 file = "LICENSE"
-hash = "c08c8a97bcb5808661709e227057adcfa14ccc88d51562ad22140617d92db498"
+hash = "478d3611d34e5160a465101a644c8940b456654fc1f5a57206af45d87e1e4f71"
 
 [[files]]
 file = "README.md"
-hash = "09cac4332467d34bafedac50acf8b36824cb7b1ac5a398ab0f83b75b4c01cab1"
+hash = "b76471c9a52a53ce8fd48ccc0224216156456135061aded5f28d007dde8779d0"
 
 [[files]]
 file = "config/.gitkeep"

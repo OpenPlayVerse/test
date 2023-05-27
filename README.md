@@ -27,7 +27,7 @@ luaposix
 
 # Third party
 ### GPLv3
-MMMTK includes some third party libraries distributed unter the GPLv3 license. For more information see: [license](#license).
+MMMTK includes some third party libraries distributed unter the GPLv3 license. For more information see: [license](/LICENSE).
 
 [UserfulThings](https://github.com/MisterNoNameLP/UsefulThings) Copyright (c)  2019-2020 MisterNoNameLP 
 
