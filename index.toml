@@ -13,41 +13,41 @@ file = "README.md"
 hash = "ab4e1f70d2d27f125aa9ccf9703ed7de3e4e5a15cf5bf3c430ec32ebf6c25077"
 
 [[files]]
-file = "config/.gitkeep"
+file = "pack/config/.gitkeep"
 hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 [[files]]
-file = "config/client.conf.pw.toml"
+file = "pack/config/client.conf.pw.toml"
 hash = "f5904fb928b447409a61f8b0ff748dc05c5fa6c745dea79e60a20e8865b1ec02"
 metafile = true
 
 [[files]]
-file = "config/server.conf.pw.toml"
+file = "pack/config/server.conf.pw.toml"
 hash = "9be079e7b257bb896a700d0105fd2e1e123a9fc86533e87002b8da118e699800"
 metafile = true
 
 [[files]]
-file = "mods/forgeessentials.jar.pw.toml"
+file = "pack/mods/forgeessentials.jar.pw.toml"
 hash = "f6fc1c86887f7b631484f8001fcde36633c95a877b78169a1c5bf4165e77c4dd"
 metafile = true
 
 [[files]]
-file = "mods/mouse-tweaks.pw.toml"
+file = "pack/mods/mouse-tweaks.pw.toml"
 hash = "30746e92b44351d3365fa5aa6e43b623476c91116fb8b9f88b7233339d3c9f43"
 metafile = true
 
 [[files]]
-file = "mods/randompatches-forge.pw.toml"
+file = "pack/mods/randompatches-forge.pw.toml"
 hash = "93d16979ce8714c02e8e13cfb36d7f604e75ca334ec3349bf6d4e8e42f1c5563"
 metafile = true
 
 [[files]]
-file = "mods/sound-filters.pw.toml"
+file = "pack/mods/sound-filters.pw.toml"
 hash = "f111153fa99abf794602fb50a853d1f8f05c1acbbca099d813389564cd4ead3d"
 metafile = true
 
 [[files]]
-file = "mods/worldedit.pw.toml"
+file = "pack/mods/worldedit.pw.toml"
 hash = "e03d80460b43f8508648f0cc4ca20e1583066c183cc9674fc021c721db2678ef"
 metafile = true
 
