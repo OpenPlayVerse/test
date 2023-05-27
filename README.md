@@ -18,24 +18,24 @@ Download this repository and install the [Dependencies](#dependencies).
 
 # Dependencies
 ### Client
-git  
-java  
-[packwiz](https://github.com/packwiz/packwiz)  
-[PleaL](https://github.com/MisterNoNameLP/PleaL)  
+git
+java
+[packwiz](https://github.com/packwiz/packwiz)
+[PleaL](https://github.com/MisterNoNameLP/PleaL)
 zip
 
 luarocks packages:  
-&nbsp; argparse  
-&nbsp; http  
-&nbsp; luafilesystem  
-&nbsp; luaposix  
+&nbsp; argparse
+http
+luafilesystem
+luaposix
 
 ### Server
-git  
-java  
-mcrcon  
-[packwiz](https://github.com/packwiz/packwiz)  
-tar  
+git
+java
+mcrcon
+[packwiz](https://github.com/packwiz/packwiz)
+tar
 
 
 
