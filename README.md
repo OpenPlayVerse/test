@@ -8,7 +8,7 @@ The server side scripts are written in bash, reducing the needed depencies.
 # Compatibility
 MMMTK only works on linux per design. There is no, and will not be an official version for any other operating systems.
 
-But anyone is free to port it to other openrating systems. See: [License](/blob/master/LICENSE).
+But anyone is free to port it to other openrating systems. See: [License](/LICENSE).
 
 # Instalation
 
