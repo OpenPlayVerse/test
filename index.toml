@@ -5,8 +5,12 @@ file = ".collectedFiles"
 hash = "62f33df0ccd0ae8b99755e98faa32835ed1c0508b2c3411f0a436a11fe05bb81"
 
 [[files]]
-file = ".currentReleaseTag"
-hash = "c3b7f0f47948b2ebc52df529601b9c9f2718019fe34e253121bbbea7c4714339"
+file = "LICENSE"
+hash = "c08c8a97bcb5808661709e227057adcfa14ccc88d51562ad22140617d92db498"
+
+[[files]]
+file = "README.md"
+hash = "532041bf93c17e30de3d7d86dcfd2869dc0bdc7e351ba0015724804d5d6c50d6"
 
 [[files]]
 file = "config/.gitkeep"
