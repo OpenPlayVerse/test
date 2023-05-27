@@ -1,40 +1,57 @@
-MMMTK (Minectraft Modpack Maintenance Tool Kit) provides a packwiz based workflow to maintain a minecraft modpack.
+MMMTK (Minectraft Modpack Maintenance Tool Kit) provides a [packwiz](https://github.com/packwiz/packwiz) based workflow to maintain a minecraft modpack.
 
-It makes is possible to update a pack, its client releases and the servers running the pack using a single command.
+It makes is possible to update a pack, its client releases and a servers running the pack using a single command.
 
 The scripts used to maintain the pack are written und [PleaL](https://github.com/MisterNoNameLP/PleaL)/Lua.  
 The server side scripts are written in bash, reducing the needed depencies. 
 
 # Compatibility
-MMMTK only works on linux per design. There is no, and will not be an official version for any other operating systems.
+MMMTK works on linux only per design. There is no, and will not be an official version for any other operating systems.
 
 But anyone is free to port it to other openrating systems. See: [License](/LICENSE).
 
-# Instalation
+# Usage
+ToDo
 
+# Instalation
+Download this repository and install the [Dependencies](#dependencies).
 
 # Dependencies
-## Client
+### Client
+git  
+java  
+[packwiz](https://github.com/packwiz/packwiz)  
 [PleaL](https://github.com/MisterNoNameLP/PleaL)  
+zip
 
-### Luarocks
-argparse  
-http  
-luafilesystem  
-luaposix  
+luarocks packages:  
+&nbsp; argparse  
+&nbsp; http  
+&nbsp; luafilesystem  
+&nbsp; luaposix  
+
+### Server
+git  
+java  
+mcrcon  
+[packwiz](https://github.com/packwiz/packwiz)  
+tar  
+
+
 
 ### Server
 
 # Third party
 ### GPLv3
-MMMTK includes some third party libraries distributed unter the GPLv3 license. For more information see: [license](/LICENSE).
+MMMTK includes some third party libraries distributed under the GPLv3 license. For more information see: [license](/LICENSE).
 
 [UserfulThings](https://github.com/MisterNoNameLP/UsefulThings) Copyright (c)  2019-2020 MisterNoNameLP 
 
 ### MIT
-MMMTK includes some third party libraries distributed unter the MIT license.
+MMMTK includes some third party libraries and programs distributed under the MIT license.
 
-[json.lua](https://github.com/rxi/json.lua) Copyright (c) 2020 rxi
+[json.lua](https://github.com/rxi/json.lua) Copyright (c) 2020 rxi  
+[packwiz](https://github.com/packwiz/packwiz)  Copyright (c) 2019
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
