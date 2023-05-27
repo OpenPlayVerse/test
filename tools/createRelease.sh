@@ -1,12 +1,12 @@
 #!/usr/bin/pleal
-local version = "0.1"
+local version = "1.0.1"
 local name = "GithubReleaseHelper"
 
 --===== conf =====--
-local url = "https://api.github.com/repos/OpenPlayVerse/test/releases"
-local releaseFiles = "release"
-local tokenPath = "ghAPI.token"
-local tmpReleaseFileLocation = ".compressedReleaseFiles.zip"
+local url = "https://api.github.com/repos/OpenPlayVerse/test/releases" --repo URL/releases
+local releaseFolders = {} --overwritten by the -R argument
+local tokenPath = "ghAPI.token" --path to file containing the bearer token
+local tmpReleaseFileLocation = ".compressedReleaseFiles.zip" --relative to the releaseFolders if starting with a dot. its recommended to have this on a ramfs
 
 --===== runtime vars =====--
 local http = require("http.request")
@@ -21,7 +21,6 @@ local token = ut.readFile("ghAPI.token")
 local uploadUrl
 local uploadedFiles = {}
 
-
 --===== init =====--
 do --arg parsing 
 	local parser = argparse(name)
@@ -35,17 +34,21 @@ do --arg parsing
 	parser:flag("-P --prerelease", "Prerelease"):target("prerelease")
 	parser:flag("-G --generate-release-notes", "Generate release notes"):target("notes")
 
+	parser:option("-R --release-folders", "Folder in wich release files are stored"):count("*"):target("releaseFolders")
+
 	parser:flag("-v --version", "log version and exit"):action(function() 
 		log("$name: v$version")
 		os.exit(0)
 	end)
 
-	parser:flag("--dry", "Dry run"):target("dry")
-	parser:option("--log-level", "Set the log level"):default(0):target("logLevel")
+	parser:option("--log-level", "Set the log level (0-2)"):default(0):target("logLevel")
 
 	args = parser:parse()
-end
 
+	if #args.releaseFolders > 0 then
+		releaseFolders = args.releaseFolders
+	end
+end
 
 --===== local functions =====--
 local function log(...)
@@ -130,6 +133,10 @@ end
 local function collectReleaseFiles(path, fileType)
 	log("Prepare ${fileType}s from: $path")
 	local dirName
+	if not lfs.attributes("$path") then
+		log("ERROR: Release folder not found: $path")
+		return false
+	end
 	for file in lfs.dir(path) do
 		if file:sub(1, 1) ~= "." then
 			if lfs.attributes("$path/$file").mode == fileType then
@@ -139,10 +146,13 @@ local function collectReleaseFiles(path, fileType)
 				end
 				if not uploadedFiles[file] then
 					if fileType == "directory" then
+						local currentWorkingDir = lfs.currentdir()
 						log("Zip dir: $path/$dirName")
-						os.execute("zip -r $tmpReleaseFileLocation $path/$dirName")
+						lfs.chdir(path)
+						os.execute("zip -r $tmpReleaseFileLocation $dirName")
 						uploadFile("$tmpReleaseFileLocation", "${dirName}.zip", fileType)
 						os.execute("rm $tmpReleaseFileLocation")
+						lfs.chdir(currentWorkingDir)
 					else
 						uploadFile("$path/$file", file, fileType)
 					end
@@ -150,21 +160,15 @@ local function collectReleaseFiles(path, fileType)
 				else
 					log("Skipping $fileType: $path/$file: file already uploaded")
 				end
-
 			end
 		end
 	end
+	return true
 end
 
 --===== prog start =====--
 --=== create release ===--
 do
-	local currentReleaseTag = ut.readFile(".currentReleaseTag") --debug
-	do
-		local file = io.open(".currentReleaseTag", "w")
-		file:write(currentReleaseTag + 1)
-	end
-
 	local responseHeaders, responseTable
 	log("Build release creation request")
 	local headers = {
@@ -177,7 +181,6 @@ do
 
 	local requestTable = {
 		tag_name = args.tag,
-		tag_name = tostring(currentReleaseTag),
 		name = args.name,
 		body = args.description,
 		target_commitish = args.target,
@@ -196,18 +199,10 @@ end
 
 --=== collect/upload release files ===--
 log("Prepare release folders")
-collectReleaseFiles(releaseFiles, "file")
-collectReleaseFiles(releaseFiles, "directory")
-
-
-
-
-
-
-
-
-
-
-
-
-
+for _, dir in pairs(releaseFolders) do
+	log("Process release folder: $dir")
+	if collectReleaseFiles(dir, "file") then
+		collectReleaseFiles(dir, "directory")
+	end
+end
+log("Done")
