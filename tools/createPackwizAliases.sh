@@ -1,5 +1,5 @@
 #!/usr/bin/pleal
-local version = "1.1.1"
+local version = "1.1.2"
 
 --===== conf =====--
 local baseDownloadURI = "https://github.com/OpenPlayVerse/test/raw/master/"
@@ -14,6 +14,21 @@ local posix = require("posix")
 
 local args 
 local listFileHandler
+
+do --arg parsing 
+	local parser = argparse("pwdfc", "PackwizDownloadFileCollector")
+
+	parser:flag("-v --version", "Prots the version and exits."):action(function() 
+		print("PackwizDownloadFileCollector v$version")
+		os.exit(0)
+	end)
+
+	parser:flag("-O --overwrite", "Overwrites already existing toml files."):target("overwrite")
+	parser:flag("-R --remove", "Removes all previously added toml files before collecting new ones."):target("remove")
+	parser:flag("-C --clear", "Removes all previously added toml files and exits."):target("clear")
+
+	args = parser:parse()
+end
 
 --===== local functions =====--
 local function fileExists(path)
@@ -144,20 +159,6 @@ hash = "$fileHash"
 end
 
 --===== init =====--
-do --arg parsing 
-	local parser = argparse("pwdfc", "PackwizDownloadFileCollector")
-
-	parser:flag("-v --version", "Prots the version and exits."):action(function() 
-		print("PackwizDownloadFileCollector v$version")
-		os.exit(0)
-	end)
-
-	parser:flag("-O --overwrite", "Overwrites already existing toml files."):target("overwrite")
-	parser:flag("-R --remove", "Removes all previously added toml files before collecting new ones."):target("remove")
-	parser:flag("-C --clear", "Removes all previously added toml files and exits."):target("clear")
-
-	args = parser:parse()
-end
 
 --===== prog start =====--
 --clear files
