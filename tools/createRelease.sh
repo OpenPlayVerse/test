@@ -1,7 +1,7 @@
 #!/usr/bin/pleal
 
 --[[
-	GithubReleaseHelper Copyright (C) 2023  MisterNoNameLP
+	GithubReleaseHelper (MMMTK version) Copyright (C) 2023  MisterNoNameLP
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,8 +16,12 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ]]
+--[[
+	This is a customised version of the GithubReleaseHelper <https://github.com/MisterNoNameLP/GithubReleaseHelper>.
+	This version contains a custom package.path to make use of libraries shipped by MMMTK.
+]]
 
-local version = "1.0.1"
+local version = "1.0.1c"
 local name = "GithubReleaseHelper"
 
 --===== conf =====--
@@ -27,6 +31,7 @@ local tokenPath = "ghAPI.token" --path to file containing the bearer token
 local tmpReleaseFileLocation = ".compressedReleaseFiles.zip" --relative to the releaseFolders if starting with a dot. its recommended to have this on a ramfs
 
 --===== runtime vars =====--
+package.path = "libs/?.lua;tools/libs/?.lua;" .. package.path
 local http = require("http.request")
 local ut = require("UT")
 local json = require("json")
