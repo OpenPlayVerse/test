@@ -19,11 +19,11 @@
    along with MMMTK.  If not, see <https://www.gnu.org/licenses/>.
 ]]
 
-local version = "1.1.2"
+local version = "1.1.3"
 
 --===== conf =====--
 local baseDownloadURI = "https://github.com/OpenPlayVerse/test/raw/master/"
-local outputDir = "./"
+local outputDir = "./packwiz"
 local listFile = ".collectedFiles"
 
 --===== local vars =====--
@@ -205,7 +205,8 @@ else
 end
 
 --add files
-collectFiles("server", "server")
-collectFiles("client", "client")
+collectFiles("pack/server", "server")
+collectFiles("pack/client", "client")
+collectFiles("pack/both", "both")
 
 listFileHandler:close()

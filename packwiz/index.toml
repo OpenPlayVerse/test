@@ -1,0 +1,35 @@
+hash-format = "sha256"
+
+[[files]]
+file = ".collectedFiles"
+hash = "62f33df0ccd0ae8b99755e98faa32835ed1c0508b2c3411f0a436a11fe05bb81"
+
+[[files]]
+file = "LICENSE"
+hash = "4a03dc6eb67c255f17154376ec3b99af63c21820d3ad36703db4eb76acf9d3ce"
+
+[[files]]
+file = "README.md"
+hash = "ab4e1f70d2d27f125aa9ccf9703ed7de3e4e5a15cf5bf3c430ec32ebf6c25077"
+
+[[files]]
+file = "pack/config/.gitkeep"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "pack/config/client.conf.pw.toml"
+hash = "f5904fb928b447409a61f8b0ff748dc05c5fa6c745dea79e60a20e8865b1ec02"
+metafile = true
+
+[[files]]
+file = "pack/config/server.conf.pw.toml"
+hash = "9be079e7b257bb896a700d0105fd2e1e123a9fc86533e87002b8da118e699800"
+metafile = true
+
+[[files]]
+file = "test.tar.gz"
+hash = "aa73975b6f50547bece7c1dd66d878cb93c5fd5c50a922ae12e770a9c0d189e7"
+
+[[files]]
+file = "tt"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

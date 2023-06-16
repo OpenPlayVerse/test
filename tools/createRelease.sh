@@ -18,7 +18,7 @@
 ]]
 --[[
 	This is a customised version of the GithubReleaseHelper <https://github.com/MisterNoNameLP/GithubReleaseHelper>.
-	This version contains a custom package.path to make use of libraries shipped by MMMTK.
+	This version contains a custom package.path to make use of libraries shipped with MMMTK.
 ]]
 package.path = "libs/?.lua;tools/libs/?.lua;" .. package.path
 

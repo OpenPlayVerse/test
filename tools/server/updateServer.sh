@@ -11,7 +11,7 @@ backupPath="${serverPath}/backups"
 serverBranch="server-live"
 serverBackupBranch="server-backup"
 
-packURI="https://raw.githubusercontent.com/OpenPlayVerse/test/master/pack.toml"
+packURI="https://raw.githubusercontent.com/OpenPlayVerse/test/master/packwiz/pack.toml"
 packwizArgs="-g -s server"
 
 rconAddress="locahost"
