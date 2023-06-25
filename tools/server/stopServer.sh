@@ -1,9 +1,13 @@
 #!/bin/bash
 
+mcrconPort=5050
+mcrconPasswd="passwd"
+mcChatColor="blue"
+
 counter=60
 
 # arg parsing
-POSITIONAL_ARGS=()
+positionalArgs=()
 while [[ $# -gt 0 ]]; do
 	case $1 in
 		-s|--seconds)	
@@ -25,7 +29,7 @@ while [[ $# -gt 0 ]]; do
 			exit 1
 		;;
 		*)
-			POSITIONAL_ARGS+=("$1") # save positional arg
+			positionalArgs+=("$1") # save positional arg
 			shift # past argument
 		  ;;
 	esac
@@ -33,8 +37,8 @@ done
 
 say () {
 	echo $*
-	mcrcon mcrcon -P 5050 -p 'passwd' \
-	'tellraw @a {"text":"'"$*"'","color":"blue"}'
+	mcrcon mcrcon -P $mcrconPort -p $mcrconPasswd \
+	'tellraw @a {"text":"'"$*"'","color":"$mcChatColor"}'
 }
 
 while [ $counter -ge 0 ]; do

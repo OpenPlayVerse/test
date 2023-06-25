@@ -55,7 +55,7 @@ trap onError ERR
 trap onExit EXIT
 
 ### arg parsing ###
-POSITIONAL_ARGS=()
+positionalArgs=()
 while [[ $# -gt 0 ]]; do
 	case $1 in
 		-s|--seconds)	
@@ -87,7 +87,7 @@ while [[ $# -gt 0 ]]; do
 			exit 1
 		;;
 		*)
-			POSITIONAL_ARGS+=("$1") # save positional arg
+			positionalArgs+=("$1") # save positional arg
 			shift # past argument
 		  ;;
 	esac
