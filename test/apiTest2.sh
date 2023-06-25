@@ -27,24 +27,24 @@ request:set_body(io.open("test.tar.gz"):read("*a"))
 
 resHeaders, stream = request:go()
 if resHeaders == nil then
-    io.stderr:write(tostring(stream))
-    io.stderr:flush()
-    os.exit(1)
+	io.stderr:write(tostring(stream))
+	io.stderr:flush()
+	os.exit(1)
 end
 
 print()
 print("===HEADERS===")
 for index, header in resHeaders:each() do
-    print(index, header)
+	print(index, header)
 end
 
 print()
 print("===BODY===")
 resBody, resErr = stream:get_body_as_string()
 if not resBody or resErr then
-    io.stderr:write(tostring(resErr))
-    io.stderr:flush()
-    os.exit(1)
+	io.stderr:write(tostring(resErr))
+	io.stderr:flush()
+	os.exit(1)
 end
 print(resBody)
 print()
