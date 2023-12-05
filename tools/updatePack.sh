@@ -8,4 +8,4 @@ cd packwiz
 packwiz refresh
 cd ..
 git add .
-git commit -m "
+git commit -m
