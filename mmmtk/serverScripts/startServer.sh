@@ -40,12 +40,15 @@ case "$serverStatus" in
         ;;
     "update")
         echo "########### [INFO]: Server is updating right now. Please wait a few minutes. ###########"
+        exit 2
         ;;
     "")
         echo "########### [ERROR]: Server status unknown. Please contact an admin. ###########"
+        exit 3
         ;;
     *)
         echo "########### [ERROR]: Server is in an unknown status ($serverStatus). Please contact an admin. ###########"
+        exit 4
         ;;
 esac
 
