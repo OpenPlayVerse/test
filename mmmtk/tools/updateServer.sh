@@ -28,6 +28,11 @@ local function vlog(msg, ...)
 		print("[VERBOSE]: " .. tostring(msg), ...)
 	end
 end
+local function nlog(msg, ...)
+	if args.netlog then
+		print("[NET]: " .. tostring(msg), ...)
+	end
+end
 local function log(msg, ...)
 	print("[INFO]: " .. tostring(msg), ...)
 end
@@ -50,7 +55,7 @@ local function sendRequest(type, uri, body)
 	local stream
 	local resHeadersTable = {}
 
-	vlog("Sending ${type} request to: ${uri}")
+	nlog("Sending ${type} request to: ${uri}")
 
 	if not body then body = {} end
 
@@ -75,12 +80,42 @@ local function sendRequest(type, uri, body)
 	if not resBody or resErr then
 		fatal("Could not process response body: " .. tostring(resErr))
 	end
+	if #resBody == 0 then
+		resBody = "{}"
+	end
 
-	if resHeadersTable[":status"] ~= "200" then
+	if resHeadersTable[":status"] ~= "200" and resHeadersTable[":status"] ~= "204" then
 		fatal("Request returned an error:\n" .. "[HEADERS]: " .. ut.tostring(resHeaders) .. "\n[BODY]: " .. ut.tostring(json.decode(resBody)))
 	end
 
 	return json.decode(resBody), resHeadersTable
+end
+function say(msg)
+	sendRequest("POST", "${url}/api/client/servers/${serverID}/command", {
+		command = "say $msg"
+	})
+end
+
+function restartCountdown(minutes)
+	local seconds = minutes * 60
+	for i = seconds, 1, -1 do
+		local remainingMinutes = math.floor(i / 60)
+		if i % 60 == 0 then
+			if i == 60 then
+				say("Server restart in $remainingMinutes minute")
+			else
+				say("Server restart in $remainingMinutes minutes")
+			end
+		elseif i == 30 then
+			say("Server restart in $i seconds")
+		elseif i < 10 then
+			say("Server restart in $i")
+		end
+		if i > 1 then
+			os.execute("sleep 0")
+		end
+	end
+	say("Server restart")
 end
 
 
@@ -94,6 +129,7 @@ do --parse args
 		os.exit(0)
 	end)
 	parser:flag("-V --verbose", "Activates verbose logging"):target("verbose")
+	parser:flag("-N --netlog", "Activates verbose logging"):target("netlog")
 	parser:flag("-Y --yes", "Skips confirmation"):target("yes")
 
 	args = parser:parse()
@@ -119,7 +155,6 @@ do --get server data
 	server.user = response.attributes.user
 	server.name = response.attributes.name
 
-	
 
 end
 
@@ -140,36 +175,46 @@ else
 	log("Skipping confirmation")
 end
 
+
 --local response = sendRequest("GET", "https://panel.openplayverse.net/api/application/servers/4", {name = "TEST"})
 do --prepare server
-	log("Preparing server for update")
-	if false then
+	log("Schedule server update")
+	vlog("Rename server to: [UPDATE SCHEDULED]${server.name}")
 	local response, responseHeaders = sendRequest("PATCH", "${url}/api/application/servers/${server.id}/details", {
 		user = server.user,
-		name = "${updateNameString}${server.name}"
+		name = "[UPDATE SCHEDULED]${server.name}"
 	})
-	end
 
-	log("Blocking users server controll access")
-	local serverData = sendRequest("GET", "${url}/api/application/users")
-	for _, data in ipairs(serverData.data) do
-		if data.object == "user" then
-			if data.attributes.id ~= user.id then
-				vlog("Block server control for user: ${data.attributes.id} (${data.attributes.username})")
-			end
-		end
-	end
+	vlog("Starting shutdown countdown")
+	
 
-	--os.execute("sleep 10")
+
+	
+
+
+	log("Preparing server for update")
+	vlog("Rename server to: [UPDATING]${server.name}")
+	local response, responseHeaders = sendRequest("PATCH", "${url}/api/application/servers/${server.id}/details", {
+		user = server.user,
+		name = "[UPDATING]${server.name}"
+	})
+	vlog("Suspend server")
+	sendRequest("POST", "${url}/api/application/servers/${server.id}/suspend")
+	
+
+	log("Update server")
+	--os.execute("sleep 5")
+
 
 	log("Finishing up")
-	if false then
+	vlog("Unsuspend server")
+	sendRequest("POST", "${url}/api/application/servers/${server.id}/unsuspend")
+	vlog("Rename server to: ${server.name}")
 	local response, responseHeaders = sendRequest("PATCH", "${url}/api/application/servers/${server.id}/details", {
 		user = server.user,
 		--name = "${server.name}"
 		name = "TEST"
 	})
-	end
 
 end
 
