@@ -16,6 +16,7 @@ local args
 local token
 local user = {}
 local server = {}
+local suspendedUsers = {}
 
 local function dump(...)
 	print(ut.tostring(...))
@@ -23,7 +24,7 @@ end
 local function dump1(msg)
 	print(ut.tostring(msg))
 end
-local function vlog(msg, ...)
+local function log(msg, ...)
 	if args.verbose then
 		print("[VERBOSE]: " .. tostring(msg), ...)
 	end
@@ -49,13 +50,19 @@ local function fatal(msg, ...)
 	os.exit(1)
 end
 
-local function sendRequest(type, uri, body)
+local function sleep(seconds)
+	if os.execute("sleep $seconds") ~= true then
+		print("Aborting")
+		os.exit(1)
+	end
+end
+local function sendRequest(requestType, uri, body)
 	local request = http.new_from_uri(uri)
 	local resHeaders, resStatus, resBody, resErr
 	local stream
 	local resHeadersTable = {}
 
-	nlog("Sending ${type} request to: ${uri}")
+	nlog("Sending ${requestType} request to: ${uri}")
 
 	if not body then body = {} end
 
@@ -63,11 +70,17 @@ local function sendRequest(type, uri, body)
 	request.headers.upsert = function(self, name, value)
 		orgHeaderUpsert(self, string.lower(name), value)
 	end
-	request.headers:upsert(":method", type)
+	request.headers:upsert(":method", requestType)
 	request.headers:upsert("Content-Type", "application/json")
 	request.headers:upsert("Accept", "Application/vnd.pterodactyl.v1+json")
 	request.headers:upsert("Authorization", "Bearer $token")
-	request:set_body(json.encode(body))
+	if type(body) == "table" then
+		request:set_body(json.encode(body))
+	elseif type(body) == "string" then
+		request:set_body(body)
+	else
+		error("Invalid body type")
+	end
 
 	resHeaders, stream = request:go()
 	if resHeaders == nil then
@@ -90,10 +103,36 @@ local function sendRequest(type, uri, body)
 
 	return json.decode(resBody), resHeadersTable
 end
-function say(msg)
-	sendRequest("POST", "${url}/api/client/servers/${serverID}/command", {
-		command = "say $msg"
+function setUserPermissions(uuid, permissionTable)
+	local permissionString = "{\"permissions\": ["
+
+	for _, perm in ipairs(permissionTable) do
+		permissionString = "${permissionString} \n  \"$perm\","
+	end
+
+	permissionString = permissionString:sub(0, -2)
+	permissionString = "$permissionString \n]}"
+	
+	sendRequest("POST", "$url/api/client/servers/$serverID/users/$uuid", permissionString)
+end
+function getServerState()
+	local response = sendRequest("GET", "$url/api/client/servers/$serverID/resources")
+	return response.attributes.current_state
+end
+function sendCommand(cmd)
+	local serverState = getServerState()
+	if getServerState() ~= "online" then
+		log("Skip sending command '$cmd', server state is in '$serverState' state")
+		return false
+	end
+
+	log("Send command: $cmd")
+	sendRequest("POST", "$url/api/client/servers/$serverID/command", {
+		command = "$cmd"
 	})
+end
+function say(msg)
+	sendCommand("say $msg")
 end
 
 function restartCountdown(minutes)
@@ -112,7 +151,7 @@ function restartCountdown(minutes)
 			say("Server restart in $i")
 		end
 		if i > 1 then
-			os.execute("sleep 0")
+			sleep(1)
 		end
 	end
 	say("Server restart")
@@ -128,33 +167,46 @@ do --parse args
 		print("Version: " .. version)
 		os.exit(0)
 	end)
-	parser:flag("-V --verbose", "Activates verbose logging"):target("verbose")
-	parser:flag("-N --netlog", "Activates verbose logging"):target("netlog")
+	--parser:flag("-V --verbose", "Activates verbose logging"):target("verbose")
+	parser:flag("-n --netlog", "Activates verbose logging"):target("netlog")
 	parser:flag("-Y --yes", "Skips confirmation"):target("yes")
+	parser:flag("-s --skip", "Skipt the restart countdown"):target("skipCountdown")
+	parser:flag("-d --dry", "A dry run, does not actually update the server"):target("dry")
+	
+	parser:option("-m --minutes", "Time for the restart countdown in minutes"):default("1"):action(function(args, _, value)
+		local newValue = tonumber(value)
+		if newValue == nil then
+			print("Invalid minute value '$value'")
+			os.exit(1)
+		end
+		args.minutes = newValue
+	end)
 
 	args = parser:parse()
 end
 
 do --init 
 	log("Init")
-	vlog("Loading token")
+	log("Loading token")
 	token = ut.readFile(tokenPath)
 	token = token:gmatch("[^\n]+")() --cutout new lines
 end
 
 do --get server data
 	log("Get server data")
-	local response = sendRequest("GET", "${url}/api/client/account")
+	local response = sendRequest("GET", "$url/api/client/account")
 	user.id = response.attributes.id
 	user.name = response.attributes.username
 
-	response = sendRequest("GET", "${url}/api/client/servers/${serverID}")
+	response = sendRequest("GET", "$url/api/application/users/$user.id")
+	user.uuid = response.attributes.uuid
+
+	response = sendRequest("GET", "$url/api/client/servers/$serverID")
 	server.id = response.attributes.internal_id
 
-	response = sendRequest("GET", "${url}/api/application/servers/${server.id}")
+	response = sendRequest("GET", "$url/api/application/servers/$server.id")
 	server.user = response.attributes.user
 	server.name = response.attributes.name
-
 
 end
 
@@ -175,50 +227,105 @@ else
 	log("Skipping confirmation")
 end
 
-
 --local response = sendRequest("GET", "https://panel.openplayverse.net/api/application/servers/4", {name = "TEST"})
 do --prepare server
+	--=== update scheduling ===--
 	log("Schedule server update")
-	vlog("Rename server to: [UPDATE SCHEDULED]${server.name}")
-	local response, responseHeaders = sendRequest("PATCH", "${url}/api/application/servers/${server.id}/details", {
+	log("Rename server to: [UPDATE SCHEDULED] ${server.name}")
+	local response, responseHeaders = sendRequest("PATCH", "$url/api/application/servers/$server.id/details", {
 		user = server.user,
-		name = "[UPDATE SCHEDULED]${server.name}"
+		name = "[UPDATE SCHEDULED] ${server.name}"
 	})
-
-	vlog("Starting shutdown countdown")
+	if not args.skipCountdown then
+		local serverState = getServerState()
+		if serverState ~= "online" then
+			log("Skipping restart countdown. Server is in '$serverState' state")
+		else
+			log("Starting shutdown countdown")
+			restartCountdown(args.minutes)
+		end
+	else
+		log("Skipping restart countdown")
+	end
 	
-
-
-	
-
-
+	--=== update preperation ===--
 	log("Preparing server for update")
-	vlog("Rename server to: [UPDATING]${server.name}")
-	local response, responseHeaders = sendRequest("PATCH", "${url}/api/application/servers/${server.id}/details", {
+	log("Rename server to: [UPDATING] ${server.name}")
+	local response, responseHeaders = sendRequest("PATCH", "$url/api/application/servers/$server.id/details", {
 		user = server.user,
-		name = "[UPDATING]${server.name}"
+		name = "[UPDATING] ${server.name}"
 	})
-	vlog("Suspend server")
-	sendRequest("POST", "${url}/api/application/servers/${server.id}/suspend")
+
+	log("Remove control permissions for users")
+	local response = sendRequest("GET", "$url/api/client/servers/$serverID/users")
+	for _, suser in ipairs(response.data) do --preparing and storing user data/permissions
+		if suser.attributes.uuid ~= user.uuid then
+			local affectedUser = {
+				attributes = {username = suser.attributes.username},
+				permissions = {},
+				suspendedPermissions = {}
+			}
+			suspendedUsers[suser.attributes.uuid] = affectedUser
+			for _, perm in ipairs(suser.attributes.permissions) do
+				if perm == "control.start" or perm == "control.restart" then
+					log("Suspent '$perm' permission for user '$affectedUser.attributes.username'")
+					table.insert(affectedUser.suspendedPermissions, perm)
+				else
+					table.insert(affectedUser.permissions, perm)
+				end
+			end
+		end
+	end
+	for uuid, suser in pairs(suspendedUsers) do
+		log("Set permissions for user: $suser.attributes.username")
+		setUserPermissions(uuid, suser.permissions)
+	end
+
+	log("Stop server")
+	sendRequest("POST", "$url/api/client/servers/$serverID/power", {signal = "stop"})
+	if getServerState() ~= "offline" then
+		log("Wait for server to stop")
+		sleep(5)
+	end
+	while true do
+		local serverState = getServerState()
+		if serverState ~= "offline" then
+			log("Server still in '$serverState' state, wait another 10 seconds")
+			sleep(10)
+		else
+			break
+		end
+	end
+	log("Suspend server")
+	sendRequest("POST", "$url/api/application/servers/$server.id/suspend")
 	
 
+
+
+	
+	--=== update execution ===--
 	log("Update server")
-	--os.execute("sleep 5")
+	
 
-
+	--=== finishing up ===--
 	log("Finishing up")
-	vlog("Unsuspend server")
-	sendRequest("POST", "${url}/api/application/servers/${server.id}/unsuspend")
-	vlog("Rename server to: ${server.name}")
-	local response, responseHeaders = sendRequest("PATCH", "${url}/api/application/servers/${server.id}/details", {
+	log("Unsuspend server")
+	sendRequest("POST", "$url/api/application/servers/$server.id/unsuspend")
+	log("Revert user permissions")
+	for uuid, suser in pairs(suspendedUsers) do
+		log("Revert permissions for user: $suser.attributes.username")
+		for _, permission in ipairs(suser.suspendedPermissions) do
+			table.insert(suser.permissions, permission)
+		end
+		setUserPermissions(uuid, suser.permissions)
+	end
+	log("Rename server to: ${server.name}")
+	local response, responseHeaders = sendRequest("PATCH", "$url/api/application/servers/$server.id/details", {
 		user = server.user,
 		--name = "${server.name}"
 		name = "TEST"
 	})
+	log("Restart server")
+	sendRequest("POST", "$url/api/client/servers/$serverID/power", {signal = "start"})
 
 end
-
-
-
-
-print(ut.tostring(response))
